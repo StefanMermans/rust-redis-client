@@ -10,6 +10,13 @@ fn main() {
     let mut client = Client::connect(HOST, PORT);
     client.handshake();
 
-    let response = client.send_message_string("EVAL \"return { double = tonumber(ARGV[1]) }\" 0 15.1e0\r\n".to_string());
+    let response = client.send_message_string("*3\r\n$3\r\nSET\r\n$5\r\nmyKey\r\n$7\r\nmyValue\r\r".to_string());
+    println!("response\n{}", &response);
+    let response = client.send_message_string("*2\r\n$3\r\nGET\r\n$5\r\nmyKey\r\n".to_string());
     println!("response\n{}", &response);
 }
+
+
+#[cfg(test)]
+mod test;
+
